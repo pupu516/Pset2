@@ -29,29 +29,31 @@ y = np.outer(np.sin(v), np.sin(u))
 z = np.outer(np.cos(v), np.ones_like(u))
 ax.plot_surface(x, y, z, color='lightblue', alpha=0.6)
 
-density = 20
-theta_example = np.linspace(0, np.pi, density)
-phi_example   = np.linspace(0, 2*np.pi, density)
+density_theta = 10
+density_phi = 15
+theta_example = np.linspace(0, np.pi, density_theta)
+phi_example = np.linspace(0, 2 * np.pi, density_phi)
+theta_grid, phi_grid = np.meshgrid(theta_example, phi_example)
 
+for i in range(theta_grid.shape[0]):
+    for j in range(theta_grid.shape[1]):
+        theta = theta_grid[i, j]
+        phi = phi_grid[i, j]
 
-example_points = np.array([theta_example, phi_example]).T
+        e_r, e_theta, e_phi = local_ortho_coor(theta, phi)
 
-for theta, phi in example_points:
-    e_r, e_theta, e_phi = local_ortho_coor(theta, phi)
-    origin = np.array([np.sin(theta) * np.cos(phi),
-                       np.sin(theta) * np.sin(phi),
-                       np.cos(theta)])
+        origin = np.array([np.sin(theta) * np.cos(phi),
+                           np.sin(theta) * np.sin(phi),
+                           np.cos(theta)])
 
-    ax.quiver(*origin, *e_r, color='r', label='e_r' if theta == example_points[0][0] else "", length=0.2, normalize=True)
-    ax.quiver(*origin, *e_theta, color='g', label='e_theta' if theta == example_points[0][0] else "", length=0.2, normalize=True)
-    ax.quiver(*origin, *e_phi, color='b', label='e_phi' if theta == example_points[0][0] else "", length=0.2, normalize=True)
+        ax.quiver(*origin, *e_r, color='r', length=0.2, normalize=True)
+        ax.quiver(*origin, *e_theta, color='g', length=0.2, normalize=True)
+        ax.quiver(*origin, *e_phi, color='b', length=0.2, normalize=True)
 
 ax.set_xlabel("X")
 ax.set_ylabel("Y")
 ax.set_zlabel("Z")
 ax.view_init(elev=20, azim=30)
-ax.legend()
 
-plt.savefig("unit_sphere_with_overlay.png", dpi=300, bbox_inches='tight')
-
+plt.savefig("unit_sphere_with_dense_coordinates.png", dpi=300, bbox_inches='tight')
 
