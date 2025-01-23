@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 theta0 = np.pi / 5  
 theta_final = np.pi / 2  
-t_points = 20
+t_points = 10
 
 
 alpha = 1  
@@ -49,7 +49,7 @@ ax.plot_surface(
 )
 ax.quiver(x, y, z, nx, ny, nz, color='red', length=0.1, normalize=True)
 ax.set_title("Parallel Transport of a Vector on a Sphere")
-plt.savefig("parallel_transport.png", dpi=300, bbox_inches='tight')
+plt.savefig("parallel_transport.png", dpi=1000, bbox_inches='tight')
 
 
 
