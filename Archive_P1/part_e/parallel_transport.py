@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 theta0 = np.pi / 5  
 theta_final = np.pi / 2  
-t_points = 100  
+t_points = 20
 
 
 alpha = 1  
