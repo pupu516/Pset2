@@ -98,6 +98,8 @@ plot_circle_2d(circle_A, t_values, 'r', "Circle A: z=0")
 plot_circle_2d(circle_B, t_values, 'g', "Circle B: x=0")
 plot_circle_2d(circle_C, t_values, 'b', "Circle C: y=0")
 
+ax2d.set_xlim([-2, 2])
+ax2d.set_ylim([-2, 2])
 ax2d.set_aspect("equal", adjustable="box")
 ax2d.set_xlabel("x'")
 ax2d.set_ylabel("y'")
