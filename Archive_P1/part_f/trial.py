@@ -35,7 +35,7 @@ ax.plot_surface(x, y, z, color='b', alpha=0.1)
 for phi in phi_values:
     vector = e_phi(theta_0, phi)
     start_point = spherical_to_cartesian(r, theta_0, phi)
-    ax.quiver(start_point[0], start_point[1], start_point[2], vector[0], vector[1], vector[2], length=0.1, color='r')
+    ax.quiver(start_point[0], start_point[1], start_point[2], vector[0], vector[1], vector[2], length=3, color='r')
 
 # Display the plot
 plt.savefig("parallel_transport_phi.png", dpi=1000, bbox_inches='tight')
