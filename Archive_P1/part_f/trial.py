@@ -17,7 +17,7 @@ def e_phi(theta, phi):
 # Set parameters
 r = 1
 theta_0 = np.pi / 4  # Fixed polar angle for simplicity
-phi_values = np.linspace(0, 2 * np.pi, 100)
+phi_values = np.linspace(0, 2 * np.pi, 20)
 
 # Initialize 3D plot
 fig = plt.figure()
