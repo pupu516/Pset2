@@ -1,68 +1,53 @@
 import numpy as np
 
-def coordinate_conversion():
-    current_coor = input("What coordinate system are you in? cartesian/spherical/cylindrical \n").strip().lower()
-    system = ['cartesian', 'spherical', 'cylindrical']
-    
-    if current_coor not in system:
-        print('Error: Please select the option I listed above')
-        return
+# Spherical to Cartesian coordinates
+def spherical_to_cartesian(r, theta, phi):
+    x = r * np.sin(theta) * np.cos(phi)
+    y = r * np.sin(theta) * np.sin(phi)
+    z = r * np.cos(theta)
+    return x, y, z
 
-    try:
-        coor1 = float(input('Enter the first coordinate: '))
-        coor2 = float(input('Enter the second coordinate: '))
-        coor3 = float(input('Enter the third coordinate: '))
-    except ValueError:
-        print("Error: Please enter a valid number")
-        return
+# Cartesian to Spherical coordinates
+def cartesian_to_spherical(x, y, z):
+    r = np.sqrt(x**2 + y**2 + z**2)
+    theta = np.arccos(z / r)
+    phi = np.arctan2(y, x)
+    return r, theta, phi
 
-    if current_coor == 'cartesian':
-        r = np.linalg.norm([coor1, coor2, coor3])
-        theta = np.arccos(coor3 / r)  
-        phi = np.arctan2(coor2, coor1)
-        sph = [r, theta, phi]
-        print("Spherical coordinates: ", sph)
-        
-        r_ = np.linalg.norm([coor1, coor2])  
-        theta_ = np.arctan2(coor2, coor1)  
-        cyl = [r_, theta_, coor3]
-        print("Cylindrical coordinates: ", cyl)
+# Cylindrical to Cartesian coordinates
+def cylindrical_to_cartesian(rho, psi, z):
+    x = rho * np.cos(psi)
+    y = rho * np.sin(psi)
+    return x, y, z
 
-    elif current_coor == 'spherical':
-        x = coor1 * np.sin(coor2) * np.cos(coor3)
-        y = coor1 * np.sin(coor2) * np.sin(coor3)
-        z = coor1 * np.cos(coor2)
-        car = [x, y, z]
-        print("Cartesian coordinates: ", car)
-        
-        r_ = coor1 * np.sin(coor2)  
-        theta_ = coor3  
-        cyl = [r_, theta_, z]
-        print("Cylindrical coordinates: ", cyl)
+# Cartesian to Cylindrical coordinates
+def cartesian_to_cylindrical(x, y, z):
+    rho = np.sqrt(x**2 + y**2)
+    psi = np.arctan2(y, x)
+    return rho, psi, z
 
-    elif current_coor == 'cylindrical':
+# Spherical basis vectors in terms of Cartesian basis
+def spherical_basis_vectors(theta, phi):
+    e_r = np.array([
+        np.sin(theta) * np.cos(phi),
+        np.sin(theta) * np.sin(phi),
+        np.cos(theta)
+    ])
+    e_theta = np.array([
+        np.cos(theta) * np.cos(phi),
+        np.cos(theta) * np.sin(phi),
+        -np.sin(theta)
+    ])
+    e_phi = np.array([
+        -np.sin(phi),
+        np.cos(phi),
+        0
+    ])
+    return e_r, e_theta, e_phi
 
-        x = coor1 * np.cos(coor2)
-        y = coor1 * np.sin(coor2)
-        z = coor3
-        car = [x, y, z]
-        print("Cartesian coordinates: ", car)
-        
-        r = np.sqrt(coor1**2 + coor3**2)  
-        theta = np.arctan2(coor1, coor3) 
-        phi = coor2  
-        sph = [r, theta, phi]
-        print("Spherical coordinates: ", sph)
-
-
-
-def basis_conversion():
-    return
-
-
-
-
-
-
-
-
+# Cylindrical basis vectors in terms of Cartesian basis
+def cylindrical_basis_vectors(psi):
+    e_rho = np.array([np.cos(psi), np.sin(psi), 0])
+    e_psi = np.array([-np.sin(psi), np.cos(psi), 0])
+    e_z = np.array([0, 0, 1])
+    return e_rho, e_psi, e_z
